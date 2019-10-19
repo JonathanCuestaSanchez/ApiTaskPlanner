@@ -1,5 +1,6 @@
 package com.example.ApiTask.persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.ApiTask.model.Task;
@@ -20,6 +21,6 @@ public interface TaskService {
     
     void removeTask(String taskId);
     
-    Task updateTask(Task task);
+    Task updateTask(String id, User responsible, String status, Date dueDate, String description,String tittle);
     
 }

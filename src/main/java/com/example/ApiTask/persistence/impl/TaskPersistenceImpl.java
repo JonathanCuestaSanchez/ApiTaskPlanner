@@ -1,5 +1,8 @@
 package com.example.ApiTask.persistence.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.ApiTask.model.Task;
@@ -13,41 +16,59 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TaskPersistenceImpl implements TaskService {
-
+    HashMap<String, Task> tareas = new HashMap<String, Task>();
     @Override
     public List<Task> geTasksList() {
-        // TODO Auto-generated method stub
-        return null;
+        List<Task> tasks = new ArrayList<Task>(tareas.values());
+        return tasks;
     }
 
     @Override
-    public Task getTaskById(String id) {
-        // TODO Auto-generated method stub
-        return null;
+    public Task getTaskById(String id) {        
+        return tareas.get(id);
     }
 
     @Override
     public List<Task> getTasksByUserId(String userId) {
-        // TODO Auto-generated method stub
-        return null;
+        List<Task> tasks = geTasksList();
+        List<Task> userTasks = new ArrayList<Task>();
+        for (int i = 0; i < tareas.size(); i++) {
+             if(tasks.get(i).getResponsible().getId().equals(userId)){
+                  userTasks.add(tasks.get(i));
+             }
+        }
+        return userTasks;
     }
 
     @Override
     public Task assignTaskToUser(String taskId, User user) {
-        // TODO Auto-generated method stub
-        return null;
+        Task taskNewAssigned = null;
+        List<Task> task = geTasksList();
+        for (int i=0; i< task.size();i++){
+            if(task.get(i).getId().equals(taskId)){
+                task.get(i).setResponsible(user);
+                taskNewAssigned = task.get(i);
+            }
+        }
+        return taskNewAssigned;
     }
 
     @Override
     public void removeTask(String taskId) {
-        // TODO Auto-generated method stub
-
+        tareas.remove(taskId);
     }
 
     @Override
-    public Task updateTask(Task task) {
-        // TODO Auto-generated method stub
-        return null;
+    public Task updateTask(String id, User responsible, String status, Date dueDate, String description, String tittle) {
+        Task task = getTaskById(id);
+        task.setId(id);
+        task.setResponsible(responsible);
+        task.setStatus(status);
+        task.setDueDate(dueDate);
+        task.setDescription(description);
+        task.setTitle(tittle);
+        tareas.replace(task.getId(),task);
+        return task;
     }
 
     

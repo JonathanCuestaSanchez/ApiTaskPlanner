@@ -12,9 +12,9 @@ public interface UserService {
     
     User getUserById(String userId);
     
-    User createUser(User user);
+    User createUser(String userId, String name, String email, String password);
     
-    User updateUser(User user);
+    User updateUser(String userId, String name, String email, String password);
     
     void removeUser(String userId);
     
