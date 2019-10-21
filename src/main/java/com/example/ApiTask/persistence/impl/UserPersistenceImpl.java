@@ -1,6 +1,5 @@
 package com.example.ApiTask.persistence.impl;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +14,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserPersistenceImpl implements UserService {
-    HashMap<String,User> usersMap = new HashMap<>();
+
+    HashMap<String, User> usersMap = new HashMap<>();
+
     @Override
     public List<User> getUsersList() {
-         List<User> users; users = new ArrayList<User>(usersMap.values());
-        return users;    
+        List<User> users;
+        users = new ArrayList<User>(usersMap.values());
+        return users;
     }
 
     @Override
@@ -30,29 +32,26 @@ public class UserPersistenceImpl implements UserService {
 
     @Override
     public User createUser(String userId, String name, String email, String password) {
-        User user = new User(userId,name,email,password);
-        usersMap.put(userId,user);
+        User user = new User(userId, name, email, password);
+        usersMap.put(userId, user);
         return user;
 
-    }
     }
 
     @Override
     public User updateUser(String userId, String name, String email, String password) {
-       User user = getUserById(userId);
+        User user = getUserById(userId);
         user.setId(userId);
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
-        usersMap.replace(user.getId(),user);
+        usersMap.replace(user.getId(), user);
         return user;
     }
 
     @Override
     public void removeUser(String userId) {
-         usersMap.remove(userId);
-
+        usersMap.remove(userId);
     }
 
-    
 }

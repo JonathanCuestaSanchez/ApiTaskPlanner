@@ -9,6 +9,7 @@ import com.example.ApiTask.persistence.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
  * UserController
  */
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/User")
 public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/allUsers")
+    @GetMapping("/Users")
     public ResponseEntity<?> getUsersList(){
         return new ResponseEntity<>(userService.getUsersList(), HttpStatus.OK);
     }
