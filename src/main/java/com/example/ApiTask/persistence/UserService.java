@@ -8,9 +8,9 @@ import com.example.ApiTask.model.User;
  * UserService
  */
 public interface UserService {
-    List<User> getUsersList();
+    List<User> getUsersList(); 
     
-    User getUserById(String userId);
+    User getUserByEmail(String userEmail);
     
     User createUser(String userId, String name, String email, String password);
     

@@ -29,20 +29,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/Users")
+    @GetMapping("")
     public ResponseEntity<?> getUsersList(){
         return new ResponseEntity<>(userService.getUsersList(), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> getUserById(@PathVariable(name = "userId") String userId){
+   
+    @GetMapping("/{email}")
+    public ResponseEntity<?> getUserByEmail(@PathVariable(name = "email") String userEmail){
         try {
-            return new ResponseEntity<>(userService.getUserById(userId),HttpStatus.OK);
+            return new ResponseEntity<>(userService.getUserByEmail(userEmail),HttpStatus.OK);
         } catch (Exception e) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>("Error usuario no encontrado",HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping ("/{userId}")
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postNewUser(@PathVariable(name = "userId") String userId, @RequestBody User user){
+    public ResponseEntity<?> postNewUser( @RequestBody User user){
         try {
             userService.createUser(user.getId(),user.getName(),user.getEmail(),user.getPassword());
             return new ResponseEntity<>("Usuario agregado",HttpStatus.OK);

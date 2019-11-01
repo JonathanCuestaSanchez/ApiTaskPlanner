@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class TaskPersistenceImpl implements TaskService {
     HashMap<String, Task> tareas = new HashMap<String, Task>();
     @Override
-    public List<Task> geTasksList() {
+    public List<Task> getTasksList() {
         List<Task> tasks = new ArrayList<Task>(tareas.values());
         return tasks;
     }
@@ -30,28 +30,15 @@ public class TaskPersistenceImpl implements TaskService {
 
     @Override
     public List<Task> getTasksByUserId(String userId) {
-        List<Task> tasks = geTasksList();
+        List<Task> tasks = getTasksList();
         List<Task> userTasks = new ArrayList<Task>();
         for (int i = 0; i < tareas.size(); i++) {
-             if(tasks.get(i).getResponsible().getId().equals(userId)){
+             if(tasks.get(i).getResponsible().equals(userId)){
                   userTasks.add(tasks.get(i));
              }
         }
         return userTasks;
-    }
-
-    @Override
-    public Task assignTaskToUser(String taskId, User user) {
-        Task taskNewAssigned = null;
-        List<Task> task = geTasksList();
-        for (int i=0; i< task.size();i++){
-            if(task.get(i).getId().equals(taskId)){
-                task.get(i).setResponsible(user);
-                taskNewAssigned = task.get(i);
-            }
-        }
-        return taskNewAssigned;
-    }
+    } 
 
     @Override
     public void removeTask(String taskId) {
@@ -59,15 +46,28 @@ public class TaskPersistenceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTask(String id, User responsible, String status, Date dueDate, String description, String tittle) {
+    public Task updateTask(String id, String responsible, String status, Date dueDate, String description, String title) {
         Task task = getTaskById(id);
         task.setId(id);
         task.setResponsible(responsible);
         task.setStatus(status);
         task.setDueDate(dueDate);
         task.setDescription(description);
-        task.setTitle(tittle);
+        task.setTitle(title);
         tareas.replace(task.getId(),task);
+        return task;
+    }
+
+    @Override
+    public Task createTask(String id, String responsible, String status, Date dueDate, String description, String title) {
+        Task task = new Task();
+        task.setId(id);
+        task.setResponsible(responsible);
+        task.setStatus(status);
+        task.setDueDate(dueDate);
+        task.setDescription(description);
+        task.setTitle(title);
+        tareas.put(id,task);
         return task;
     }
 

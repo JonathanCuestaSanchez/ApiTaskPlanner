@@ -25,22 +25,22 @@ public class UserPersistenceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(String userId) {
-        User user = usersMap.get(userId);
+    public User getUserByEmail(String userEmail) {
+        User user = usersMap.get(userEmail);
         return user;
     }
 
     @Override
     public User createUser(String userId, String name, String email, String password) {
         User user = new User(userId, name, email, password);
-        usersMap.put(userId, user);
+        usersMap.put(email, user);
         return user;
 
     }
 
     @Override
     public User updateUser(String userId, String name, String email, String password) {
-        User user = getUserById(userId);
+        User user = getUserByEmail(email);
         user.setId(userId);
         user.setName(name);
         user.setEmail(email);

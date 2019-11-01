@@ -9,11 +9,28 @@ public class Task {
     String id;
     String title;
     String description;
-    User responsible;
+    String responsible;
     Date dueDate;
     String status;
 
+    public Task (String id, String title, String description, String responsible, Date dueDate, String status) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.responsible = responsible;
+        this.dueDate = dueDate;
+        this.status = status;
+    }
+
     public Task() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -31,7 +48,14 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
- 
+
+    public String getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(String responsible) {
+        this.responsible = responsible;
+    }
 
     public Date getDueDate() {
         return dueDate;
@@ -49,21 +73,10 @@ public class Task {
         this.status = status;
     }
 
-    public User getResponsible() {
-        return responsible;
-    }
+  
 
-    public void setResponsible(User responsible) {
-        this.responsible = responsible;
-    }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    
 
    
 

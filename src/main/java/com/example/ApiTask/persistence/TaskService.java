@@ -11,16 +11,16 @@ import com.example.ApiTask.model.User;
  */
 public interface TaskService {
     
-    List<Task> geTasksList();
+    List<Task> getTasksList();
         
     Task getTaskById(String id);
     
     List<Task> getTasksByUserId(String userId);
     
-    Task assignTaskToUser(String taskId, User user);
+    //Task assignTaskToUser(String taskId, String user);
     
     void removeTask(String taskId);
     
-    Task updateTask(String id, User responsible, String status, Date dueDate, String description,String tittle);
-    
+    Task createTask(String id, String responsible, String status, Date dueDate, String description,String title);
+    Task updateTask(String id, String responsible, String status, Date dueDate, String description, String title);
 }

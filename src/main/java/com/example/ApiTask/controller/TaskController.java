@@ -30,9 +30,9 @@ public class TaskController {
 
     @Autowired
     TaskService taskService;
-    @GetMapping("/Tasks")
+    @GetMapping("")
     public ResponseEntity<?> getTaskList(){
-        return new ResponseEntity<>(taskService.geTasksList(), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.getTasksList(), HttpStatus.OK);
     }
 
     @GetMapping("/{taskId}")
@@ -58,7 +58,7 @@ public class TaskController {
 
     }
 
-    @GetMapping ("/{userId}")
+    @GetMapping ("/User/{userId}")
     public ResponseEntity<?> getTaskByUserId(@PathVariable(name = "userId") String userId){
         try {
             taskService.getTasksByUserId(userId);
@@ -70,23 +70,23 @@ public class TaskController {
 
     }
 
-    @PostMapping
-    public ResponseEntity<?> updateTask(@RequestBody Task task) {
+    @PostMapping(path = "")
+    public ResponseEntity<?> createTask(@RequestBody Task task) {
+        try {
+            return new ResponseEntity<>(taskService.createTask(task.getId(),task.getResponsible(),task.getStatus(),task.getDueDate(),task.getDescription(),task.getTitle()), HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }    
+    
+    @PutMapping("/{tastId}")
+    public ResponseEntity<?> updateTaks(@PathVariable(name = "tastId") String tastId,@RequestBody Task task) {
         try {
             return new ResponseEntity<>(taskService.updateTask(task.getId(),task.getResponsible(),task.getStatus(),task.getDueDate(),task.getDescription(),task.getTitle()), HttpStatus.ACCEPTED);
         } catch (Exception ex) {
-
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
-    }
-
-    @PutMapping
-    public ResponseEntity<?> assignedTaskToUser(@PathVariable(name = "taskId") String taskId,@RequestBody User user){
-        try {
-            return new ResponseEntity<>(taskService.assignTaskToUser(taskId,user), HttpStatus.ACCEPTED);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
+    }  
+    
 }
 
