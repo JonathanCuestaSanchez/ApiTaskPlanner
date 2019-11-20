@@ -10,11 +10,11 @@ import com.example.ApiTask.model.User;
 public interface UserService {
     List<User> getUsersList(); 
     
-    User getUserByEmail(String userEmail);
+    User getUserByEmail(String userId);
     
-    User createUser(String userId, String name, String email, String password);
+    User createUser(User user);
     
-    User updateUser(String userId, String name, String email, String password);
+    User updateUser(User user);
     
     void removeUser(String userId);
     

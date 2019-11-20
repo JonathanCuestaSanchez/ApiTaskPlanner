@@ -1,12 +1,10 @@
 package com.example.ApiTask.persistence.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import com.example.ApiTask.model.Task;
-import com.example.ApiTask.model.User;
 import com.example.ApiTask.persistence.TaskService;
 
 import org.springframework.stereotype.Service;
@@ -46,28 +44,14 @@ public class TaskPersistenceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTask(String id, String responsible, String status, Date dueDate, String description, String title) {
-        Task task = getTaskById(id);
-        task.setId(id);
-        task.setResponsible(responsible);
-        task.setStatus(status);
-        task.setDueDate(dueDate);
-        task.setDescription(description);
-        task.setTitle(title);
+    public Task updateTask(Task task) {        
         tareas.replace(task.getId(),task);
         return task;
     }
 
     @Override
-    public Task createTask(String id, String responsible, String status, Date dueDate, String description, String title) {
-        Task task = new Task();
-        task.setId(id);
-        task.setResponsible(responsible);
-        task.setStatus(status);
-        task.setDueDate(dueDate);
-        task.setDescription(description);
-        task.setTitle(title);
-        tareas.put(id,task);
+    public Task createTask(Task task) {        
+        tareas.put(task.getId(),task);
         return task;
     }
 

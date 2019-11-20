@@ -60,7 +60,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> postNewUser( @RequestBody User user){
         try {
-            userService.createUser(user.getId(),user.getName(),user.getEmail(),user.getPassword());
+            userService.createUser(user);
             return new ResponseEntity<>("Usuario agregado",HttpStatus.OK);
         } catch (Exception e) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, e);
@@ -72,7 +72,7 @@ public class UserController {
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {
-            return new ResponseEntity<>(userService.updateUser(user.getId(),user.getName(),user.getEmail(),user.getPassword()), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(userService.updateUser(user), HttpStatus.ACCEPTED);
         } catch (Exception ex) {
 
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);

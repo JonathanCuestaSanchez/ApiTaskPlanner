@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.example.ApiTask.model.Task;
-import com.example.ApiTask.model.User;
 import com.example.ApiTask.persistence.TaskService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,16 +72,16 @@ public class TaskController {
     @PostMapping(path = "")
     public ResponseEntity<?> createTask(@RequestBody Task task) {
         try {
-            return new ResponseEntity<>(taskService.createTask(task.getId(),task.getResponsible(),task.getStatus(),task.getDueDate(),task.getDescription(),task.getTitle()), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(taskService.createTask(task), HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }    
     
     @PutMapping("/{tastId}")
-    public ResponseEntity<?> updateTaks(@PathVariable(name = "tastId") String tastId,@RequestBody Task task) {
+    public ResponseEntity<?> updateTaks(@PathVariable(name = "tastId") @RequestBody Task task) {
         try {
-            return new ResponseEntity<>(taskService.updateTask(task.getId(),task.getResponsible(),task.getStatus(),task.getDueDate(),task.getDescription(),task.getTitle()), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(taskService.updateTask(task), HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
